@@ -5,7 +5,6 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/niuniumart/gosdk/seelog"
 	"github.com/pkg/errors"
 )
 

@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/niuniumart/gosdk/requestid"
-	"github.com/niuniumart/gosdk/seelog"
 	"hash/fnv"
 	"strconv"
 	"strings"

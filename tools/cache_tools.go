@@ -6,7 +6,6 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/niuniumart/gosdk/rediscli"
-	"github.com/niuniumart/gosdk/seelog"
 )
 
 // CacheWrapper cache wrapper

@@ -11,9 +11,8 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/niuniumart/gosdk/response"
-	"github.com/niuniumart/gosdk/seelog"
 	"github.com/mitchellh/mapstructure"
+	"github.com/niuniumart/gosdk/response"
 )
 
 var client *http.Client

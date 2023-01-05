@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"runtime"
 	"runtime/debug"
-
-	"github.com/niuniumart/gosdk/seelog"
 )
 
 //GoRoutine  开启协程，已处理好panic。

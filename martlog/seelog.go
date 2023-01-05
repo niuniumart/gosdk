@@ -1,5 +1,5 @@
 // Package seelog for seelog
-package seelog
+package martlog
 
 import (
 	"fmt"
@@ -74,11 +74,6 @@ func Info(params ...interface{}) {
 	}
 	seelog.Infof(newParams...)
 }*/
-
-// Infof implement infof
-func InfofZ(format string, params ...interface{}) {
-	Sugar.Infof(getPrefix(LogLevelInfo)+format, params...)
-}
 
 // Debugf implement debug
 func Debugf(format string, params ...interface{}) {

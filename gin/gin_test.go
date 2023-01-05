@@ -8,7 +8,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/niuniumart/gosdk/middleware/utils"
-	"github.com/niuniumart/gosdk/seelog"
 	"github.com/smartystreets/goconvey/convey"
 )
 

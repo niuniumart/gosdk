@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gomodule/redigo/redis"
-	"github.com/niuniumart/gosdk/seelog"
 )
 
 // SecKill sec kill struct

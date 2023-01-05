@@ -9,7 +9,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/niuniumart/gosdk/middleware/utils"
 	"github.com/niuniumart/gosdk/requestid"
-	"github.com/niuniumart/gosdk/seelog"
 	"github.com/niuniumart/gosdk/tools"
 	"io/ioutil"
 	"strings"

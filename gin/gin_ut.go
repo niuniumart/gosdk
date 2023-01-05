@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"github.com/niuniumart/gosdk/seelog"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"

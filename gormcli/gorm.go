@@ -3,7 +3,6 @@ package gormcli
 
 import (
 	"fmt"
-	"github.com/niuniumart/gosdk/seelog"
 	"strings"
 	// load mysql enum
 	_ "github.com/go-sql-driver/mysql"

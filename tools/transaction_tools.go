@@ -2,7 +2,6 @@ package tools
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/niuniumart/gosdk/seelog"
 )
 
 // RollbackUnlessCommitted func

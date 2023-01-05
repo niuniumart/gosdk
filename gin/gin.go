@@ -21,7 +21,6 @@ import (
 	"github.com/gin-gonic/gin"
 	recoverSdk "github.com/niuniumart/gosdk/middleware/recover"
 	"github.com/niuniumart/gosdk/middleware/utils"
-	"github.com/niuniumart/gosdk/seelog"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
