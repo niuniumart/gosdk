@@ -14,7 +14,7 @@ import (
 
 // init data
 func init() {
-	seelog.RegisterCustomFormatter("ServiceName", createAppNameFormatter)
+	seelog.RegisterCustomFormatter("serviceName", createAppNameFormatter)
 	logger, err := seelog.LoggerFromConfigAsString(seelogConfig)
 	if err != nil {
 		log.Fatal("parsing seelog config file err ", err.Error())
