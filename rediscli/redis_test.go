@@ -80,7 +80,7 @@ func TestIncrease(t *testing.T) {
 }
 
 func TestDesc(t *testing.T) {
-	key := "cataabb"
+	key := "cataabbaaa"
 	var fac = &RedisFactory{}
 	cli, err := fac.CreateRedisCli("", "127.0.0.1:6379")
 	if err != nil {
