@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/niuniumart/gosdk/martlog"
 	"github.com/niuniumart/gosdk/middleware/utils"
 	"github.com/niuniumart/gosdk/requestid"
 	"github.com/niuniumart/gosdk/tools"
