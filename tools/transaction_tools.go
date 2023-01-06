@@ -2,6 +2,7 @@ package tools
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/niuniumart/gosdk/martlog"
 )
 
 // RollbackUnlessCommitted func

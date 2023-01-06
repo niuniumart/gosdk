@@ -30,11 +30,6 @@ var (
 	RESP_REDIS_EXPIRE_ERROR *RetBase
 	RESP_REDIS_DELETE_ERROR *RetBase
 	RESP_REDIS_SCRIPT_ERROR *RetBase
-
-	RESP_NFT_PUBKEY_FORMAT_ERROR      *RetBase
-	RESP_NFT_SIGN_FORMAT_ERROR        *RetBase
-	RESP_NFT_ADDRESS_FORMAT_ERROR     *RetBase
-	RESP_NFT_SIGN_VERIFY_FORMAT_ERROR *RetBase
 )
 
 //0～1000为公共响应码，为各服务共用。其余的响应码分段，各服务自行维护
@@ -67,11 +62,6 @@ func init() {
 	RESP_REDIS_EXPIRE_ERROR = Build(48, "redis执行EXPIRE失败")
 	RESP_REDIS_DELETE_ERROR = Build(49, "redis执行DEL失败")
 	RESP_REDIS_SCRIPT_ERROR = Build(50, "redis脚本错误")
-
-	RESP_NFT_PUBKEY_FORMAT_ERROR = Build(55, "NFT-公钥格式错误")
-	RESP_NFT_SIGN_FORMAT_ERROR = Build(56, "NFT-签名格式错误")
-	RESP_NFT_ADDRESS_FORMAT_ERROR = Build(57, "NFT-地址格式错误")
-	RESP_NFT_SIGN_VERIFY_FORMAT_ERROR = Build(58, "NFT-验签错误")
 }
 
 // Build func for build ret struct

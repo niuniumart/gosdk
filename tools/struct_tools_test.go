@@ -11,20 +11,20 @@ type Base struct {
 
 type P1 struct {
 	Age int
-	B Base
+	B   Base
 }
 
 type P2 struct {
 	Age int
-	B Base
+	B   Base
 }
 
 func TestSimpleCopyProperties(t *testing.T) {
-	p1 :=P1{
+	p1 := P1{
 		2,
 		Base{"age"},
 	}
-	p2:=P2{}
+	p2 := P2{}
 
 	err := SimpleCopyProperties(&p2, &p1)
 	fmt.Println(err)

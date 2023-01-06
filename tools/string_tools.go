@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/niuniumart/gosdk/martlog"
 	"github.com/niuniumart/gosdk/requestid"
 	"hash/fnv"
 	"strconv"
