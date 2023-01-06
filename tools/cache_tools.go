@@ -20,15 +20,15 @@ type CacheWrapper struct {
 //@args function的参数
 func (p *CacheWrapper) Do(result interface{}, function interface{}, args ...interface{}) error {
 	key := GetCacheKey(function, args...)
-	seelog.Infof("key:%s", key)
+	martlog.Infof("key:%s", key)
 
 	if p.Cli.Exists(key) {
 		epInfoBytes, err := p.Cli.Get(key)
 		if err == nil {
-			seelog.Infof("get from redis success")
+			martlog.Infof("get from redis success")
 			err := json.Unmarshal(epInfoBytes, result)
 			if err == nil {
-				seelog.Infof("Unmarshal done")
+				martlog.Infof("Unmarshal done")
 				return nil
 			}
 		}
@@ -41,19 +41,19 @@ func (p *CacheWrapper) Do(result interface{}, function interface{}, args ...inte
 
 	err = SimpleCopyProperties(result, funcRet)
 	if err != nil {
-		seelog.Errorf("SimpleCopyProperties failed, %s", err.Error())
+		martlog.Errorf("SimpleCopyProperties failed, %s", err.Error())
 		return err
 	}
 
 	bytes, err := json.Marshal(funcRet)
 	if err != nil {
-		seelog.Errorf("Marshal failed, %s", err.Error())
+		martlog.Errorf("Marshal failed, %s", err.Error())
 		return err
 	}
 
 	err = p.Cli.Set(key, string(bytes), p.Timeout)
 	if err != nil {
-		seelog.Errorf("redis Set failed, %s", err.Error())
+		martlog.Errorf("redis Set failed, %s", err.Error())
 	}
 
 	return nil

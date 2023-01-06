@@ -13,7 +13,7 @@ import (
 
 func TestCreateTBaasGin(t *testing.T) {
 	convey.Convey("TestCreateTBaasGin", t, func() {
-		seelog.Infof("just test log", 5, 666)
+		martlog.Infof("just test log", 5, 666)
 		engine := CreateTBaasGin()
 		engine.POST("/reverse", Reverse)
 		engine.GET("/panic", MustPanic)
@@ -98,7 +98,7 @@ func TestPanic(t *testing.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				fmt.Println(err)
-				seelog.Errorf("In PanicRecover,Error:%s", err)
+				martlog.Errorf("In PanicRecover,Error:%s", err)
 				//打印调用栈信息
 			}
 		}()

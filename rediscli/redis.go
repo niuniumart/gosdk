@@ -4,6 +4,7 @@ package rediscli
 import (
 	"errors"
 	"fmt"
+	"github.com/niuniumart/gosdk/martlog"
 	"strconv"
 	"time"
 
@@ -89,7 +90,7 @@ func (p *RedisCli) IncrBy(key string, count int64) (int64, error) {
 
 	temp, err := redis.Int64(conn.Do("INCRBY", key, count))
 	if err != nil {
-		seelog.Errorf("get incr error1:" + err.Error())
+		martlog.Errorf("get incr error1:" + err.Error())
 		return 0, err
 	}
 	return temp, nil
@@ -105,10 +106,10 @@ func (p *RedisCli) Increase(key string) (string, error) {
 	//第二个为进制，这里为十进制
 	ret := strconv.FormatInt(temp, 10)
 	if err != nil {
-		seelog.Errorf("get incr error:" + err.Error())
+		martlog.Errorf("get incr error:" + err.Error())
 		return "", err
 	}
-	seelog.Infof("key:" + key + "value:" + ret)
+	martlog.Infof("key:" + key + "value:" + ret)
 	return ret, nil
 }
 
@@ -121,7 +122,7 @@ func (p *RedisCli) Decrease(pool, key string) (string, error) {
 	temp, err := redis.Int64(conn.Do("DECR", key))
 	ret := strconv.FormatInt(temp, 10)
 	if err != nil {
-		seelog.Errorf("get incr error1:" + err.Error())
+		martlog.Errorf("get incr error1:" + err.Error())
 		return "", err
 	}
 	return ret, nil
@@ -134,7 +135,7 @@ func (p *RedisCli) DescBy(key string, count int64) (int64, error) {
 
 	temp, err := redis.Int64(conn.Do("DECRBY", key, count))
 	if err != nil {
-		seelog.Errorf("get incr error1:" + err.Error())
+		martlog.Errorf("get incr error1:" + err.Error())
 		return 0, err
 	}
 	return temp, nil
@@ -247,13 +248,13 @@ func (p *RedisCli) TTL(key string) (int, error) {
 	temp, err := redis.Int64(conn.Do("TTL", key))
 	strInt64 := strconv.FormatInt(temp, 10)
 	if err != nil {
-		seelog.Errorf(err.Error())
+		martlog.Errorf(err.Error())
 		return -3, err
 	}
 	ret, err := strconv.Atoi(strInt64)
 
 	if err != nil {
-		seelog.Errorf(err.Error())
+		martlog.Errorf(err.Error())
 		return -4, err
 	}
 	return ret, nil
@@ -280,7 +281,7 @@ func (p *RedisCli) RPush(key string, value string) (int64, error) {
 
 	temp, err := redis.Int64(conn.Do("RPUSH", key, value))
 	if err != nil {
-		seelog.Errorf("redis error1:" + err.Error())
+		martlog.Errorf("redis error1:" + err.Error())
 		return 0, err
 	}
 	return temp, nil
@@ -306,7 +307,7 @@ func (p *RedisCli) LPop(key string) (string, error) {
 
 	temp, err := redis.Bytes(conn.Do("LPOP", key))
 	if err != nil {
-		seelog.Errorf("redis error1:" + err.Error())
+		martlog.Errorf("redis error1:" + err.Error())
 		return "", err
 	}
 	return string(temp), nil
@@ -318,7 +319,7 @@ func (p *RedisCli) LRange(key string, begin, end int) ([]string, error) {
 	defer conn.Close()
 	values, err := redis.Values(conn.Do("lrange", key, begin, end))
 	if err != nil {
-		seelog.Errorf("lrange err", err.Error())
+		martlog.Errorf("lrange err", err.Error())
 		return nil, err
 	}
 	resList := make([]string, 0)

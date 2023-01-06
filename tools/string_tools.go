@@ -157,7 +157,7 @@ func HashStrAndConvertToInt(str string, lenth int) int {
 	hashStr = hashStr[len(hashStr)-lenth:]
 	index, err := strconv.ParseInt(hashStr, 16, 32)
 	if err != nil {
-		seelog.Errorf("parse int error %s", err.Error())
+		martlog.Errorf("parse int error %s", err.Error())
 		return 0
 	}
 	return int(index) + 1

@@ -31,14 +31,14 @@ func FuncProxyWithoutReturn(rawFunction interface{}, args ...interface{}) {
 	//判断传入的为函数
 	function := reflect.ValueOf(rawFunction)
 	if function.Kind() != reflect.Func {
-		seelog.Errorf("rawFunction is not func type")
+		martlog.Errorf("rawFunction is not func type")
 		return
 	}
 
 	//匹配函数参数与传入参数的个数
 	numInFunc := function.Type().NumIn()
 	if numInFunc != len(args) {
-		seelog.Errorf("numInFunc is equal to args[%d]", len(args))
+		martlog.Errorf("numInFunc is equal to args[%d]", len(args))
 		return
 	}
 
@@ -58,14 +58,14 @@ func FuncProxy(rawFunction interface{}, args ...interface{}) (interface{}, error
 	//判断传入的为函数
 	function := reflect.ValueOf(rawFunction)
 	if function.Kind() != reflect.Func {
-		seelog.Errorf("rawFunction is not func type")
+		martlog.Errorf("rawFunction is not func type")
 		return nil, errors.New("rawFunction is not func type")
 	}
 
 	//匹配函数参数与传入参数的个数
 	numInFunc := function.Type().NumIn()
 	if numInFunc != len(args) {
-		seelog.Errorf("numInFunc is equal to args[%d]", len(args))
+		martlog.Errorf("numInFunc is equal to args[%d]", len(args))
 		return nil, errors.New("numInFunc is equal to args")
 	}
 
@@ -77,12 +77,12 @@ func FuncProxy(rawFunction interface{}, args ...interface{}) (interface{}, error
 	numInReturn := function.Type().NumOut()
 	//最多2个返回值；如果有2个返回值，最后一个必须是error
 	if numInReturn > 2 {
-		seelog.Errorf("not support numInReturn[%d]", numInReturn)
+		martlog.Errorf("not support numInReturn[%d]", numInReturn)
 		return nil, errors.New("not support numInReturn")
 	} else if numInReturn == 2 {
 		lastType := function.Type().Out(numInReturn - 1)
 		if !TypeIsError(lastType) {
-			seelog.Errorf("last output must be error")
+			martlog.Errorf("last output must be error")
 			return nil, errors.New("last output must be error")
 		}
 	}

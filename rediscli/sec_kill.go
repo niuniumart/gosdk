@@ -43,8 +43,8 @@ func (p *SecKill) BuildData(key string, total int64) error {
 func (p *SecKill) Aquire(key string, num int64) error {
 	var luaScript = redis.NewScript(1, secKillLua)
 	key = p.getCrtKey(key)
-	seelog.Infof("key %s\n", key)
-	seelog.Infof("num %d\n", num)
+	martlog.Infof("key %s\n", key)
+	martlog.Infof("num %d\n", num)
 	retCode, err := redis.Int64(luaScript.Do(p.RedisCli.RedisPool.Get(), key, fmt.Sprintf("%d", num)))
 	if err != nil {
 		return err

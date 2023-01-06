@@ -86,8 +86,8 @@ func (logger *GormLogger) Print(values ...interface{}) {
 		level = values[0]
 	)
 	if level == "sql" {
-		seelog.Infof("%+v %s \"\"", values, level)
+		martlog.Infof("%+v %s \"\"", values, level)
 	} else {
-		seelog.Infof("%+v", values)
+		martlog.Infof("%+v", values)
 	}
 }

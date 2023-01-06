@@ -59,14 +59,14 @@ func (p *HttpTrigger) Execute(body interface{}) (*response.RetData, error) {
 
 	respStr, err := p.SendJsonRequest(p.Client, p.QueryDic, p.HeaderDic, body)
 	if err != nil {
-		seelog.Errorf("SendJsonRequest error:%s", err.Error())
+		martlog.Errorf("SendJsonRequest error:%s", err.Error())
 		return nil, response.RESP_HTTP_REQ_ERROR
 	}
 
 	var respData = &response.RetData{}
 	err = json.Unmarshal(respStr, respData)
 	if err != nil {
-		seelog.Errorf("Unmarshal error:%s", err.Error())
+		martlog.Errorf("Unmarshal error:%s", err.Error())
 		return nil, response.RESP_JSON_UNMARSHAL_ERROR
 	}
 
@@ -92,7 +92,7 @@ func (p *HttpTrigger) HttpGet(url string, retData interface{}) error {
 	if retData != nil {
 		err = mapstructure.Decode(data.Data, retData)
 		if err != nil {
-			seelog.Errorf("mapstructure Decode error:%s", err.Error())
+			martlog.Errorf("mapstructure Decode error:%s", err.Error())
 			return response.RESP_JSON_UNMARSHAL_ERROR
 		}
 	}
@@ -119,7 +119,7 @@ func (p *HttpTrigger) HttpPost(url string, body interface{}, retData interface{}
 	if retData != nil {
 		err = mapstructure.Decode(data.Data, retData)
 		if err != nil {
-			seelog.Errorf("mapstructure Decode error:%s", err.Error())
+			martlog.Errorf("mapstructure Decode error:%s", err.Error())
 			return response.RESP_JSON_UNMARSHAL_ERROR
 		}
 	}
@@ -133,7 +133,7 @@ func SendRequest(client *http.Client, queryStrDic, headerDic map[string]string,
 	// step 1: put query string into url
 	baseUrl, err := url.Parse(reqUrl)
 	if err != nil {
-		seelog.Errorf("url.Parse err %s", err.Error())
+		martlog.Errorf("url.Parse err %s", err.Error())
 		return nil, err
 	}
 	if queryStr != "" {
@@ -147,9 +147,9 @@ func SendRequest(client *http.Client, queryStrDic, headerDic map[string]string,
 		baseUrl.RawQuery = params.Encode()
 	}
 	reqUrl = baseUrl.String()
-	seelog.Infof("call %s with reqUrl %s, method %s, from %s", to, reqUrl, method, from)
+	martlog.Infof("call %s with reqUrl %s, method %s, from %s", to, reqUrl, method, from)
 	if !disableReqBodyPrint {
-		seelog.Infof("call %s with reqUrl %s, body is %v", to, reqUrl, body)
+		martlog.Infof("call %s with reqUrl %s, body is %v", to, reqUrl, body)
 	}
 	var reader io.Reader
 	if method != http.MethodGet && body != nil {
@@ -159,10 +159,10 @@ func SendRequest(client *http.Client, queryStrDic, headerDic map[string]string,
 		} else {
 			b, err := json.Marshal(body)
 			if err != nil {
-				seelog.Errorf("json.Marshal err %s", err.Error())
+				martlog.Errorf("json.Marshal err %s", err.Error())
 				return nil, err
 			}
-			seelog.Infof("post content %s", string(b))
+			martlog.Infof("post content %s", string(b))
 			reqBody := bytes.NewBuffer(b)
 			reader = reqBody
 		}
@@ -170,7 +170,7 @@ func SendRequest(client *http.Client, queryStrDic, headerDic map[string]string,
 
 	req, err := http.NewRequest(method, reqUrl, reader)
 	if err != nil {
-		seelog.Errorf("http.NewRequest err %s, reqUrl %s", err.Error(), reqUrl)
+		martlog.Errorf("http.NewRequest err %s, reqUrl %s", err.Error(), reqUrl)
 		return nil, err
 	}
 	for k, v := range headerDic {
@@ -185,22 +185,22 @@ func SendRequest(client *http.Client, queryStrDic, headerDic map[string]string,
 	beginTime := time.Now()
 	resp, err := client.Do(req)
 	if err != nil {
-		seelog.Errorf("Client.Do err %s", err.Error())
+		martlog.Errorf("Client.Do err %s", err.Error())
 		return nil, err
 	}
 	if resp == nil {
 		errMsg := fmt.Sprintf("resp is nil, may be server can't reach")
-		seelog.Errorf(errMsg)
+		martlog.Errorf(errMsg)
 		return nil, errors.New(errMsg)
 	}
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		seelog.Errorf("ioutil.ReadAll err %s", err.Error())
+		martlog.Errorf("ioutil.ReadAll err %s", err.Error())
 		return nil, err
 	}
-	seelog.Infof("call %s with reqUrl %s success and cost %v", to, reqUrl, time.Since(beginTime))
+	martlog.Infof("call %s with reqUrl %s success and cost %v", to, reqUrl, time.Since(beginTime))
 	if !disableRespPrint {
-		seelog.Infof("call %s with reqUrl %s resp %s", to, reqUrl, string(content))
+		martlog.Infof("call %s with reqUrl %s resp %s", to, reqUrl, string(content))
 	}
 	defer resp.Body.Close()
 	return content, nil

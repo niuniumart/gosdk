@@ -89,10 +89,10 @@ func DoRequest(uri, method string, param map[string]interface{}) string {
 	if method == http.MethodPost {
 		reqBody, _ = json.Marshal(param)
 	}
-	seelog.Infof("method %s, uri %s, reqBody %s", method, uri, string(reqBody))
+	martlog.Infof("method %s, uri %s, reqBody %s", method, uri, string(reqBody))
 	req, err := http.NewRequest(method, uri, bytes.NewReader(reqBody))
 	if err != nil {
-		seelog.Errorf("NewRequest err %s", err.Error())
+		martlog.Errorf("NewRequest err %s", err.Error())
 		return err.Error()
 	}
 
@@ -100,7 +100,7 @@ func DoRequest(uri, method string, param map[string]interface{}) string {
 	client := &http.Client{Timeout: 3000 * time.Millisecond}
 	resp, err := client.Do(req)
 	if err != nil {
-		seelog.Errorf("NewRequest err %s", err.Error())
+		martlog.Errorf("NewRequest err %s", err.Error())
 		return err.Error()
 	}
 	body, _ := ioutil.ReadAll(resp.Body)

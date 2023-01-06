@@ -8,7 +8,7 @@ import (
 func RollbackUnlessCommitted(tx *gorm.DB) {
 	err := tx.RollbackUnlessCommitted().Error
 	if err != nil {
-		seelog.Errorf("tx.RollbackUnlessCommitted Error %s", err.Error())
+		martlog.Errorf("tx.RollbackUnlessCommitted Error %s", err.Error())
 	}
 }
 
@@ -16,6 +16,6 @@ func RollbackUnlessCommitted(tx *gorm.DB) {
 func Commit(tx *gorm.DB) {
 	err := tx.Commit().Error
 	if err != nil {
-		seelog.Errorf("tx.Commit Error %s", err.Error())
+		martlog.Errorf("tx.Commit Error %s", err.Error())
 	}
 }

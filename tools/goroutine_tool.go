@@ -2,6 +2,7 @@ package tools
 
 import (
 	"fmt"
+	"github.com/niuniumart/gosdk/martlog"
 	"runtime"
 	"runtime/debug"
 )
@@ -12,13 +13,13 @@ import (
 func GoRoutine(function interface{}, args ...interface{}) {
 	go func() {
 		if err := recover(); err != nil {
-			seelog.Errorf("Routine Panic Recover,Error:%s", err)
+			martlog.Errorf("Routine Panic Recover,Error:%s", err)
 			//打印调用栈信息
 			debug.PrintStack()
 			buf := make([]byte, 2048)
 			n := runtime.Stack(buf, false)
 			stackInfo := fmt.Sprintf("%s", buf[:n])
-			seelog.Errorf("panic stack info %s\n", stackInfo)
+			martlog.Errorf("panic stack info %s\n", stackInfo)
 			return
 		}
 

@@ -4,6 +4,7 @@ package gin
 import (
 	"context"
 	"fmt"
+	"github.com/niuniumart/gosdk/martlog"
 	"github.com/niuniumart/gosdk/middleware/logprint"
 	"io/ioutil"
 	"net/http"
@@ -46,12 +47,12 @@ func RunByPort(engine *gin.Engine, port int) error {
 	go func() {
 		defer func() {
 			if err := recover(); err != nil {
-				seelog.Errorf("In pprof PanicRecover,Error:%s", err)
+				martlog.Errorf("In pprof PanicRecover,Error:%s", err)
 			}
 		}()
 		err := http.ListenAndServe(fmt.Sprintf(":%d", port+3), nil) //开启一个http服务
 		if err != nil {
-			seelog.Errorf("ListenAndServe: ", err)
+			martlog.Errorf("ListenAndServe: ", err)
 			return
 		}
 	}()
@@ -82,7 +83,7 @@ func RunWithGraceShutDown(engine *gin.Engine, port string, timeout int) {
 	go func() {
 		// service connections
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			seelog.Errorf("listen: %s\n", err)
+			martlog.Errorf("listen: %s\n", err)
 		}
 	}()
 
@@ -95,19 +96,19 @@ func RunWithGraceShutDown(engine *gin.Engine, port string, timeout int) {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 
-	seelog.Infof("Shutdown Server ...")
+	martlog.Infof("Shutdown Server ...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
-		seelog.Errorf("Server Shutdown err:%s", err)
+		martlog.Errorf("Server Shutdown err:%s", err)
 	}
 	// catching ctx.Done(). timeout of input seconds.
 	select {
 	case <-ctx.Done():
-		seelog.Infof("Reach timeout of %d seconds.", timeout)
+		martlog.Infof("Reach timeout of %d seconds.", timeout)
 	}
-	seelog.Infof("Server exiting")
+	martlog.Infof("Server exiting")
 }
 
 //SetRespGetterFactory set resp getter factory

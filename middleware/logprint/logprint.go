@@ -81,7 +81,7 @@ func InfoLog() gin.HandlerFunc {
 			var rg utils.RequestGetter
 			err := json.Unmarshal(body, &rg)
 			if err != nil {
-				seelog.Warnf("Req Body json unmarshal requestID err %s", err.Error())
+				martlog.Warnf("Req Body json unmarshal requestID err %s", err.Error())
 			}
 			if requestModule == "" {
 				requestModule = rg.Module
@@ -94,7 +94,7 @@ func InfoLog() gin.HandlerFunc {
 		requestid.Set(requestID)
 		defer requestid.Delete()
 		if _, ok := ignoreReqLogUrlDic[c.Request.URL.Path]; !ok {
-			seelog.Infof("Req Url: %s %+v,[Body]:%s; [Header]:%s", c.Request.Method, c.Request.URL,
+			martlog.Infof("Req Url: %s %+v,[Body]:%s; [Header]:%s", c.Request.Method, c.Request.URL,
 				string(body), tools.GetFmtStr(c.Request.Header))
 		}
 		// ***** 3. set resp writer ****** //
@@ -117,11 +117,11 @@ func InfoLog() gin.HandlerFunc {
 				fmt.Sprintf("%d", rspGetter.GetCode())).Inc()
 		}
 		if _, ok := ignoreRespLogUrl[c.Request.URL.Path]; !ok {
-			seelog.Infof("Url: %+v, cost %v Resp Body %s", c.Request.URL,
+			martlog.Infof("Url: %+v, cost %v Resp Body %s", c.Request.URL,
 				time.Since(beginTime), strBody)
 		}
 		duration := float64(time.Since(beginTime)) / float64(time.Second)
-		seelog.Infof("ReqPath[%s]-Duration[%g]", c.Request.URL.Path, duration)
+		martlog.Infof("ReqPath[%s]-Duration[%g]", c.Request.URL.Path, duration)
 		utils.ReqDurationVec.WithLabelValues(requestModule, c.Request.URL.Path).Observe(duration)
 	}
 }
