@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/mitchellh/mapstructure"
+	"github.com/niuniumart/gosdk/martlog"
 	"github.com/niuniumart/gosdk/response"
 )
 

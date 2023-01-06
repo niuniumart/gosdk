@@ -2,6 +2,7 @@ package gin
 
 import (
 	"fmt"
+	"github.com/niuniumart/gosdk/martlog"
 	"net/http"
 	"testing"
 	"time"

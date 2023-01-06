@@ -1,5 +1,5 @@
 // Package seelog for martlog
-package seelog
+package martlog
 
 import (
 	"fmt"

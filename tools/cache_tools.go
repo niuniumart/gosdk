@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
+	"github.com/niuniumart/gosdk/martlog"
 	"github.com/niuniumart/gosdk/rediscli"
 )
 
