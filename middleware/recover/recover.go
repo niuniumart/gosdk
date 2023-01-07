@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/niuniumart/gosdk/martlog"
 	"github.com/niuniumart/gosdk/middleware/utils"
 	"github.com/niuniumart/gosdk/response"
 	"io/ioutil"
