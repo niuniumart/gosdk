@@ -13,7 +13,7 @@ func TestGormCliHttp(t *testing.T) {
 	dbName := "niuniumart"
 	Factory.WriteTimeout = 2
 	Factory.ReadTimeout = 2
-	MysqlCli, err := Factory.CreateTBassGorm(user, pwd, url, dbName)
+	MysqlCli, err := Factory.CreateGorm(user, pwd, url, dbName)
 	if err != nil {
 		fmt.Println(err)
 		return

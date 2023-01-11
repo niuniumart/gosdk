@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-const MaxPrintBodyLen = 1024
+const MAX_PRINT_BODY_LEN = 1024
 
 // writer, use for log
 type bodyLogWriter struct {
@@ -32,9 +32,7 @@ func (w bodyLogWriter) Write(b []byte) (int, error) {
 }
 
 const (
-	REQUEST_KEY    = "Cloud-Trace-Id"
-	REQUEST_MODULE = "Cloud-Module"
-	REQUEST_ID_KEY = "Request-Id"
+	REQUEST_KEY = "Trace-Id"
 )
 
 var ignoreReqLogUrlDic, ignoreRespLogUrl map[string]int
@@ -74,21 +72,14 @@ func InfoLog() gin.HandlerFunc {
 		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 		// ***** 2. set requestID for goroutine ctx ****** //
 		requestID := c.Request.Header.Get(REQUEST_KEY)
-		requestModule := c.Request.Header.Get(REQUEST_MODULE)
-		if requestID == "" {
-			requestID = c.Request.Header.Get(REQUEST_ID_KEY)
-		}
 		if requestID == "" {
 			var rg utils.RequestGetter
 			err := json.Unmarshal(body, &rg)
 			if err != nil {
 				martlog.Warnf("Req Body json unmarshal requestID err %s", err.Error())
 			}
-			if requestModule == "" {
-				requestModule = rg.Module
-			}
 		}
-		utils.TotalCounterVec.WithLabelValues(requestModule, c.Request.URL.Path).Inc()
+		utils.TotalCounterVec.WithLabelValues("", c.Request.URL.Path).Inc()
 		if requestID == "" {
 			requestID = fmt.Sprintf("%+v", uuid.New())
 		}
@@ -105,8 +96,8 @@ func InfoLog() gin.HandlerFunc {
 		c.Next()
 		// ***** 5. log resp body ****** //
 		strBody := strings.Trim(blw.BodyBuf.String(), "\n")
-		if len(strBody) > MaxPrintBodyLen {
-			strBody = strBody[:(MaxPrintBodyLen - 1)]
+		if len(strBody) > MAX_PRINT_BODY_LEN {
+			strBody = strBody[:(MAX_PRINT_BODY_LEN - 1)]
 		}
 		// ***** 6. judge logic error ****** //
 		getterFactory := utils.GetRespGetterFactory()
@@ -114,7 +105,7 @@ func InfoLog() gin.HandlerFunc {
 		//var rspGetter utils.ResponseGetter
 		json.Unmarshal(blw.BodyBuf.Bytes(), &rspGetter)
 		if rspGetter.GetCode() != utils.REQUEST_SUCCESS {
-			utils.ReqLogicErrorVec.WithLabelValues(requestModule, c.Request.URL.Path,
+			utils.ReqLogicErrorVec.WithLabelValues("", c.Request.URL.Path,
 				fmt.Sprintf("%d", rspGetter.GetCode())).Inc()
 		}
 		if _, ok := ignoreRespLogUrl[c.Request.URL.Path]; !ok {
@@ -123,7 +114,7 @@ func InfoLog() gin.HandlerFunc {
 		}
 		duration := float64(time.Since(beginTime)) / float64(time.Second)
 		martlog.Infof("ReqPath[%s]-Duration[%g]", c.Request.URL.Path, duration)
-		utils.ReqDurationVec.WithLabelValues(requestModule, c.Request.URL.Path).Observe(duration)
+		utils.ReqDurationVec.WithLabelValues("", c.Request.URL.Path).Observe(duration)
 	}
 }
 

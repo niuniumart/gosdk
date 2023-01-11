@@ -29,24 +29,24 @@ type RedisCli struct {
 }
 
 const (
-	DefaultMaxConn     = 3500
-	DefaultMaxIdleConn = 3000
-	DefaultIdleTimeout = 300 // use time.Second
+	DEFAULT_MAX_CONN      = 3500
+	DEFAULT_MAX_IDEL_CONN = 3000
+	DEFAULT_IDEL_TIMEOUT  = 300 // use time.Second
 )
 
 //CreateRedisCli func create redis cli
 func (p *RedisFactory) CreateRedisCli(pwd, url string) (*RedisCli, error) {
 	maxIdleConn := p.MaxIdleConn
 	if maxIdleConn == 0 {
-		maxIdleConn = DefaultMaxIdleConn
+		maxIdleConn = DEFAULT_MAX_IDEL_CONN
 	}
 	maxConn := p.MaxConn
 	if maxConn == 0 {
-		maxConn = DefaultMaxConn
+		maxConn = DEFAULT_MAX_CONN
 	}
 	idleTimeout := p.IdleTimeout
 	if idleTimeout == 0 {
-		idleTimeout = DefaultIdleTimeout
+		idleTimeout = DEFAULT_IDEL_TIMEOUT
 	}
 	redisPool := &redis.Pool{
 		MaxIdle:     maxIdleConn,

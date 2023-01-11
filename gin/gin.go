@@ -29,8 +29,8 @@ func init() {
 	debug.SetGCPercent(1000)
 }
 
-//CreateTBaasGin create tbaas gin instance
-func CreateTBaasGin() *gin.Engine {
+//CreateGin create  gin instance
+func CreateGin() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard
 	engine := gin.Default()

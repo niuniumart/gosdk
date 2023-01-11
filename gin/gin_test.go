@@ -12,10 +12,10 @@ import (
 	"github.com/smartystreets/goconvey/convey"
 )
 
-func TestCreateTBaasGin(t *testing.T) {
-	convey.Convey("TestCreateTBaasGin", t, func() {
+func TestCreateGin(t *testing.T) {
+	convey.Convey("TestCreateGin", t, func() {
 		martlog.Infof("just test log", 5, 666)
-		engine := CreateTBaasGin()
+		engine := CreateGin()
 		engine.POST("/reverse", Reverse)
 		engine.GET("/panic", MustPanic)
 		engine.GET("/logicerr", LogicError)
@@ -41,8 +41,8 @@ func (p *RespGetter) GetCode() int {
 	return p.Code
 }
 
-func TestCreateTBaasGinServer(t *testing.T) {
-	convey.Convey("TestCreateTBaasGinServer", t, func() {
+func TestCreateGinServer(t *testing.T) {
+	convey.Convey("TestCreateGinServer", t, func() {
 		defer func() {
 			if err := recover(); err != nil {
 				fmt.Println(err)
@@ -53,7 +53,7 @@ func TestCreateTBaasGinServer(t *testing.T) {
 			return new(RespGetter)
 		}
 		SetRespGetterFactory(fac)
-		engine := CreateTBaasGin()
+		engine := CreateGin()
 		engine.GET("/ping", Pong)
 		engine.POST("/reverse", Reverse)
 		err := Run(engine, ":31112")

@@ -12,11 +12,11 @@ import (
 )
 
 const (
-	DefaultMaxConn      = 12000
-	DefaultMaxIdleConn  = 7000
-	DefaultIdleTimeout  = 10 // use time.Second
-	DefaultReadTimeout  = 10
-	DefaultWriteTimeout = 10
+	DEFAULT_MAX_CONN      = 12000
+	DEFAULT_MAX_IDEL_CONN = 7000
+	DEFAULT_IDEL_TIMEOUT  = 10 // use time.Second
+	DEFAULT_READ_TIMEOUT  = 10
+	DEFAULT_WRITE_TIMEOUT = 10
 )
 
 // GormLogger Gorm用来打日志的结构体
@@ -46,12 +46,12 @@ func IsDupErr(err error) bool {
 }
 
 //	url like this :  "127.0.0.1:3306"
-func (p *GormFactory) CreateTBassGorm(user, pwd, url, database string) (*gorm.DB, error) {
+func (p *GormFactory) CreateGorm(user, pwd, url, database string) (*gorm.DB, error) {
 	if p.ReadTimeout == 0 {
-		p.ReadTimeout = DefaultReadTimeout
+		p.ReadTimeout = DEFAULT_READ_TIMEOUT
 	}
 	if p.WriteTimeout == 0 {
-		p.WriteTimeout = DefaultWriteTimeout
+		p.WriteTimeout = DEFAULT_WRITE_TIMEOUT
 	}
 	auth := user + ":" + pwd
 	db, err := gorm.Open("mysql",
@@ -65,15 +65,15 @@ func (p *GormFactory) CreateTBassGorm(user, pwd, url, database string) (*gorm.DB
 	db.SetLogger(logger)
 	maxIdleConn := p.MaxIdleConn
 	if maxIdleConn == 0 {
-		maxIdleConn = DefaultMaxIdleConn
+		maxIdleConn = DEFAULT_MAX_IDEL_CONN
 	}
 	maxConn := p.MaxConn
 	if maxConn == 0 {
-		maxConn = DefaultMaxConn
+		maxConn = DEFAULT_MAX_CONN
 	}
 	idleTimeout := p.IdleTimeout
 	if idleTimeout == 0 {
-		idleTimeout = DefaultIdleTimeout
+		idleTimeout = DEFAULT_IDEL_TIMEOUT
 	}
 	db.DB().SetMaxIdleConns(maxIdleConn)
 	db.DB().SetMaxOpenConns(maxConn)
