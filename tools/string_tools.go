@@ -163,3 +163,23 @@ func HashStrAndConvertToInt(str string, lenth int) int {
 	}
 	return int(index) + 1
 }
+
+// 传入数据内容，返回 crc校验码
+func Crc16Check(data []byte) []byte {
+	var crc16 uint16 = 0xFFFF
+	l := len(data)
+	for i := 0; i < l; i++ {
+		crc16 ^= uint16(data[i])
+		for j := 0; j < 8; j++ {
+			if crc16&0x0001 > 0 {
+				crc16 = (crc16 >> 1) ^ 0xA001
+			} else {
+				crc16 >>= 1
+			}
+		}
+	}
+	packet := make([]byte, 2)
+	packet[1] = byte(crc16 & 0xff)
+	packet[0] = byte(crc16 >> 8)
+	return packet
+}

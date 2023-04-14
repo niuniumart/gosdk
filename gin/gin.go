@@ -27,6 +27,9 @@ import (
 
 func init() {
 	debug.SetGCPercent(1000)
+	go func() {
+		http.ListenAndServe("0.0.0.0:26688", nil)
+	}()
 }
 
 //CreateGin create  gin instance
@@ -44,18 +47,6 @@ func CreateGin() *gin.Engine {
 
 //RunByPort run with port
 func RunByPort(engine *gin.Engine, port int) error {
-	go func() {
-		defer func() {
-			if err := recover(); err != nil {
-				martlog.Errorf("In pprof PanicRecover,Error:%s", err)
-			}
-		}()
-		err := http.ListenAndServe(fmt.Sprintf(":%d", port+3), nil) //开启一个http服务
-		if err != nil {
-			martlog.Errorf("ListenAndServe: ", err)
-			return
-		}
-	}()
 	return Run(engine, fmt.Sprintf("%d", port))
 }
 

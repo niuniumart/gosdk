@@ -21,10 +21,11 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/gin-gonic/gin v1.7.2-0.20211111000755-6aee45608da7
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/gomodule/redigo v1.8.3
+	github.com/gomodule/redigo v1.8.5
 	github.com/google/uuid v1.1.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/mitchellh/mapstructure v1.4.1
+	github.com/mna/redisc v1.3.2
 	github.com/olivere/elastic/v7 v7.0.29
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.6.0

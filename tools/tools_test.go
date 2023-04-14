@@ -1,7 +1,9 @@
 package tools
 
 import (
+	"bytes"
 	"encoding/base64"
+	"encoding/binary"
 	"fmt"
 	"github.com/fatih/structs"
 	"github.com/gin-gonic/gin"
@@ -320,4 +322,24 @@ func RandNum(num int64) int64 {
 func TestUuid(t *testing.T) {
 	requestIDStr := fmt.Sprintf("%+v", uuid.New())
 	fmt.Println(requestIDStr)
+}
+
+func TestCrc16Check(t *testing.T) {
+	s := Crc16Check([]byte("abcdddaaaaaaaaaaaa"))
+	fmt.Println(s, string(s))
+	k := BytesToInt(s)
+	fmt.Println(k)
+	a := k % 16383
+	fmt.Println(a)
+	j := BytesToInt([]byte("abcdddaaaaaaaaaaaa"))
+	fmt.Println(j)
+}
+
+func BytesToInt(b []byte) int {
+	bytesBuffer := bytes.NewBuffer(b)
+
+	var x int32
+	binary.Read(bytesBuffer, binary.BigEndian, &x)
+
+	return int(x)
 }

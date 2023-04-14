@@ -2,6 +2,7 @@ package rediscli
 
 import (
 	"fmt"
+	"github.com/gomodule/redigo/redis"
 	"testing"
 
 	"github.com/smartystreets/goconvey/convey"
@@ -22,7 +23,43 @@ func TestRedisCli(t *testing.T) {
 		s := string(buf)
 		convey.So(s, convey.ShouldEqual, "hahaha")
 	})
+}
 
+func TestRedislock(t *testing.T) {
+	convey.Convey("TestRedisCliHttp", t, func() {
+		var fac = &RedisFactory{}
+		cli, err := fac.CreateRedisCli("", "127.0.0.1:6379")
+		if err != nil {
+			fmt.Println("create conn pool err ", err)
+			return
+		}
+		var dlock = CreateDLock(cli)
+		err = dlock.Lock("abc", "hahaha", 25)
+		if err == redis.ErrNil {
+			fmt.Println(err)
+		} else {
+			convey.So(err, convey.ShouldBeNil)
+		}
+	})
+}
+
+func TestRedisUnLock(t *testing.T) {
+	convey.Convey("TestRedisCliHttp", t, func() {
+		var fac = &RedisFactory{}
+		cli, err := fac.CreateRedisCli("", "127.0.0.1:6379")
+		if err != nil {
+			fmt.Println("create conn pool err ", err)
+			return
+		}
+		var dlock = CreateDLock(cli)
+		flag, err := dlock.Unlock("abc", "hahah")
+		fmt.Println(flag, err)
+		if err == redis.ErrNil {
+			fmt.Println(err)
+		} else {
+			convey.So(err, convey.ShouldBeNil)
+		}
+	})
 }
 
 func TestRedisSecKill(t *testing.T) {
