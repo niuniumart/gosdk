@@ -5,12 +5,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/niuniumart/gosdk/martlog"
+	"github.com/niuniumart/gosdk/middleware/cors"
 	"github.com/niuniumart/gosdk/middleware/logprint"
 	"io/ioutil"
 	"net/http"
-	"runtime/debug"
-
-	"github.com/niuniumart/gosdk/middleware/cors"
 
 	// 加入pprof功能
 	_ "net/http/pprof"
@@ -26,7 +24,6 @@ import (
 )
 
 func init() {
-	debug.SetGCPercent(1000)
 	go func() {
 		http.ListenAndServe("0.0.0.0:26688", nil)
 	}()
