@@ -21,17 +21,19 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/gin-gonic/gin v1.7.2-0.20211111000755-6aee45608da7
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gomodule/redigo v1.8.5
 	github.com/google/uuid v1.1.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/mitchellh/mapstructure v1.4.1
-	github.com/mna/redisc v1.3.2
 	github.com/olivere/elastic/v7 v7.0.29
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.6.0
+	github.com/redis/go-redis/v9 v9.0.5
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/stretchr/testify v1.8.0 // indirect
 	github.com/v2pro/plz v0.0.0-20221028024117-e5f9aec5b631
+	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )

@@ -1,0 +1,16 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="GoCommentLeadingSpace" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoCommentStart" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoErrorStringFormat" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoExportedOwnDeclaration" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoNameStartsWithPackageName" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoReceiverNames" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoSnakeCaseUsage" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoStructInitializationWithoutFieldNames" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoUnhandledErrorResult" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="GoUnitSpecificDurationSuffix" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="GoUnsortedImport" enabled="true" level="INFORMATION" enabled_by_default="true" />
+  </profile>
+</component>
