@@ -32,8 +32,8 @@ require (
 	github.com/redis/go-redis/v9 v9.0.5
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/smartystreets/goconvey v1.6.4
-	github.com/stretchr/testify v1.8.0 // indirect
 	github.com/v2pro/plz v0.0.0-20221028024117-e5f9aec5b631
+	go.uber.org/zap v1.24.0
 	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )
